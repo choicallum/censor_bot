@@ -18,7 +18,7 @@ class CensorBot(IdMixin, Bot):
         if gid not in CENSOR_GUILDS or author_info['id'] == self._bot_id:
             return
 
-        censored = censor(text)
+        censored = censor(censored_words, text) // censored_words is a list of words ex: censored_words = ["aaa", "bbb"]
         if censored:
             message_out = f'Censored - {author_info["username"]}: {censored}'
             reply_info = data.get('message_reference')
@@ -32,18 +32,18 @@ class CensorBot(IdMixin, Bot):
                 ret.append(ReplyCommand(gid, cid, reply_info['message_id'], message_out, allow_mentions=allow_mentions))
             return ret
 
-def censor(message_text):
+def censor(words, message_text):
     msg = message_text
     count = 0
-    while 'poggers' in msg.lower():
-       poggers_index = msg.lower().index('poggers')
-       msg = msg[:poggers_index] + 'p\\*ggers' + msg[poggers_index + 7:]
-       count = count + 1;
-
-    while 'objectively' in msg.lower():
-       obj_index = msg.lower().index('objectively')
-       msg = msg[:obj_index] + 'ob\\*ectively' + msg[obj_index + 11:]
-       count = count + 1;
+    
+    for word in words:
+        while word in msg.lower():
+            word_index = msg.lower().index(word);
+            word_length = len(word)
+            replacement_str = word[0] + "*" + word[:1]
+                
+            msg = msg[:word_index] + replacement_str + msg[word_index + len(word):]
+            count = count + 1
 
     if count >= 1:
         return msg

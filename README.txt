@@ -1,3 +1,1 @@
-A plug-in for a Discord Bot that automatically catches any message including the words "poggers" and "objectively" and deletes it, and sends a new message including the user's name and the same message, with any instance of those words being censored.  
-
-While made as a joke, it could be repurposed to delete or censor actual inflammatory content, such as racial or homophobic slurs.
+A plug-in for a Discord Bot that automatically catches any message including any chosen word in censored_words, and deletes the sent message. It then resends the message, quoting the original user word for word except replacing the chosen word with a censored version. 

@@ -18,7 +18,8 @@ class CensorBot(IdMixin, Bot):
         if gid not in CENSOR_GUILDS or author_info['id'] == self._bot_id:
             return
 
-        censored = censor(censored_words, text) // censored_words is a list of words ex: censored_words = ["aaa", "bbb"]
+        # censored_words is a list of words ex: censored_words = ["aaa", "bbb"]
+        censored = censor(censored_words, text) 
         if censored:
             message_out = f'Censored - {author_info["username"]}: {censored}'
             reply_info = data.get('message_reference')
